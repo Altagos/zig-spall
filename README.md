@@ -55,9 +55,9 @@ An example with threads is in the [example folder](https://github.com/altagos/zi
 
 ## Similar libraries & other profiling libraries
 
-- [zig-tracer](https://github.com/nektro/zig-tracer/tree/master): Generic tracing library for Zig, supports multiple backends.
+- [zig-tracer](https://github.com/nektro/zig-tracer/): Generic tracing library for Zig, supports multiple backends.
 
-  zig-spall is based on [zig-tracer](https://github.com/nektro/zig-tracer/tree/master)'s design.
+  zig-spall is based on [zig-tracer](https://github.com/nektro/zig-tracer/)'s design.
 
 - [zig-tracy](https://github.com/cipharius/zig-tracy/tree/master): Easy to use bindings for the tracy client C API.
 - [ztracy](https://github.com/michal-z/zig-gamedev/tree/main/libs/ztracy): performance markers for Tracy 0.10
@@ -67,6 +67,8 @@ An example with threads is in the [example folder](https://github.com/altagos/zi
 ## TODO
 
 - [ ] add enable and disable options
+- [ ] add compatibility with [zig-tracer](https://github.com/nektro/zig-tracer/)
+- [ ] add documentation
 
 ## License
 
