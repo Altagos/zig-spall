@@ -46,7 +46,7 @@ pub fn deinit_thread() void {
     }
 }
 
-const Span = struct {
+pub const Span = struct {
     src: std.builtin.SourceLocation,
 
     pub inline fn end(self: Span) void {
@@ -94,14 +94,14 @@ pub inline fn trace_end(span: Span) void {
 
 const magic: u64 = 0x0BADF00D;
 
-const Header = extern struct {
+pub const Header = extern struct {
     magic_header: u64 align(1) = magic,
     version: u64 align(1) = 1,
     timestamp_unit: f64 align(1) = 1.0,
     must_be_0: u64 align(1) = 0,
 };
 
-const EventType = enum(u8) {
+pub const EventType = enum(u8) {
     invalid = 0,
     custom_data = 1,
     stream_over = 2,
@@ -114,7 +114,7 @@ const EventType = enum(u8) {
     pad_skip = 7,
 };
 
-const BeginEvent = extern struct {
+pub const BeginEvent = extern struct {
     type: EventType align(1) = .begin,
     category: u8 align(1) = 0,
 
@@ -126,29 +126,25 @@ const BeginEvent = extern struct {
     args_lenght: u8 align(1),
 };
 
-const BeginEventMax = extern struct {
+pub const BeginEventMax = extern struct {
     event: BeginEvent align(1),
     name_bytes: [255]u8 align(1),
     args_bytes: [255]u8 align(1),
 };
 
-const EndEvent = extern struct {
+pub const EndEvent = extern struct {
     type: EventType align(1) = .end,
     pid: u32 align(1),
     tid: u32 align(1),
     when: f64 align(1),
 };
 
-const SkipEvent = extern struct {
+pub const SkipEvent = extern struct {
     type: EventType align(1) = .pad_skip,
     size: u32 align(1),
 };
 
-const WriteCallback = ?fn (*Profile, ?*const anyopaque, usize) callconv(.Inline) bool;
-const FlushCallback = ?fn (*Profile) callconv(.Inline) bool;
-const CloseCallback = ?fn (*Profile) callconv(.Inline) void;
-
-const Profile = struct {
+pub const Profile = struct {
     timestamp_unit: f64,
     is_json: bool = false,
     file: ?std.fs.File = null,
@@ -156,14 +152,14 @@ const Profile = struct {
     pub fn init(filename: []const u8, timestamp_unit: f64) !Profile {
         const file = try std.fs.cwd().createFile(filename, .{
             .truncate = true,
-            // .lock = .shared,
+            .lock = .shared,
         });
         try file.writer().writeStruct(Header{ .timestamp_unit = timestamp_unit });
         return .{ .file = file, .timestamp_unit = timestamp_unit };
     }
 };
 
-const Buffer = struct {
+pub const Buffer = struct {
     ctx: ?*Profile = null,
     writer: std.io.BufferedWriter(4096, std.fs.File.Writer),
 
