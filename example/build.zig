@@ -4,10 +4,12 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    const spall_enable = b.option(bool, "spall_enable", "Enable spall profiling") orelse false;
+
     const spall = b.dependency("spall", .{
         .target = target,
         .optimize = optimize,
-        .enable = true,
+        .enable = spall_enable,
     });
 
     const exe = b.addExecutable(.{
