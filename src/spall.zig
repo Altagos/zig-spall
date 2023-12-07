@@ -10,13 +10,12 @@ threadlocal var buffer: ?Buffer = undefined;
 threadlocal var started: bool = false;
 
 pub fn init(filename: []const u8) !void {
-    if (builtin.os.tag == .linux) {
-        pid = std.os.linux.getpid();
-    } else if (builtin.os.tag == .windows) {
-        pid = std.os.windows.kernel32.GetCurrentProcessId();
-    } else if (builtin.os.tag == .macos) {
-        pid = try std.os.darwin.machTaskForSelf().pidForTask();
-    }
+    pid = switch (builtin.os.tag) {
+        .linux => std.os.linux.getpid(),
+        .macos, .ios, .watchos, .tvos => try std.os.darwin.machTaskForSelf().pidForTask(),
+        .windows => std.os.windows.kernel32.GetCurrentProcessId(),
+        else => 0,
+    };
 
     ctx = try Profile.init(filename, 1.0);
 }
@@ -28,13 +27,11 @@ pub fn deinit() void {
 }
 
 pub fn init_thread() void {
-    if (builtin.os.tag == .linux) {
-        tid = std.os.linux.gettid();
-    } else if (builtin.os.tag == .windows) {
-        tid = std.os.windows.kernel32.GetCurrentThreadId();
-    } else {
-        tid = std.Thread.getCurrentId();
-    }
+    tid = switch (builtin.os.tag) {
+        .linux => std.os.linux.gettid(),
+        .windows => std.os.windows.kernel32.GetCurrentThreadId(),
+        else => std.Thread.getCurrentId(),
+    };
 
     buffer = Buffer.init(&ctx);
     started = true;

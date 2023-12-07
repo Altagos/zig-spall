@@ -7,6 +7,7 @@ pub fn build(b: *std.Build) void {
     const spall = b.dependency("spall", .{
         .target = target,
         .optimize = optimize,
+        .enable = true,
     });
 
     const exe = b.addExecutable(.{

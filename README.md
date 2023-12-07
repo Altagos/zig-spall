@@ -23,6 +23,7 @@ Then in `build.zig` add it to your Compile step like this:
 const spall = b.dependency("spall", .{
     .target = target,
     .optimize = optimize,
+    .enable = true, // Disabling spall will make any function call a nop (no operation), default: false
 });
 
 exe.addModule("spall", spall.module("spall"));
@@ -66,7 +67,7 @@ An example with threads is in the [example folder](https://github.com/altagos/zi
 
 ## TODO
 
-- [ ] add enable and disable options
+- [x] add enable and disable options
 - [ ] add compatibility with [zig-tracer](https://github.com/nektro/zig-tracer/)
 - [ ] add documentation
 
