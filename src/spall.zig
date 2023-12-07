@@ -27,20 +27,23 @@ pub fn deinit() void {
 }
 
 pub fn init_thread() void {
-    tid = switch (builtin.os.tag) {
-        .linux => std.os.linux.gettid(),
-        .windows => std.os.windows.kernel32.GetCurrentThreadId(),
-        else => std.Thread.getCurrentId(),
-    };
+    if (!started) {
+        tid = switch (builtin.os.tag) {
+            .linux => std.os.linux.gettid(),
+            .windows => std.os.windows.kernel32.GetCurrentThreadId(),
+            else => std.Thread.getCurrentId(),
+        };
 
-    buffer = Buffer.init(&ctx);
-    started = true;
+        buffer = Buffer.init(&ctx);
+        started = true;
+    }
 }
 
 pub fn deinit_thread() void {
     if (buffer) |*b| {
         b.quit();
     }
+    started = false;
 }
 
 pub const Span = struct {
