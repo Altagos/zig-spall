@@ -1,8 +1,8 @@
-# zig-spall
+---
+title: "Zig-Spall"
+---
 
-Zig library for generating [spall-web](gravitymoth.com/spall) profiling reports.
-
-## Installation
+# Installation
 
 First add it as dependencie to your `build.zig.zon` file:
 
@@ -29,7 +29,7 @@ const spall = b.dependency("spall", .{
 exe.addModule("spall", spall.module("spall"));
 ```
 
-## Usage
+# Usage
 
 In your program:
 
@@ -54,7 +54,7 @@ pub fn main() !void {
 
 An example with threads is in the [example folder](https://git.sr.ht/~altagos/zig-spall/tree/main/item/example).
 
-## Similar libraries & other profiling libraries
+# Similar libraries & other profiling libraries
 
 - [zig-tracer](https://github.com/nektro/zig-tracer/): Generic tracing library for Zig, supports multiple backends.
 
@@ -65,12 +65,12 @@ An example with threads is in the [example folder](https://git.sr.ht/~altagos/zi
 
   > part of [michal-z/zig-gamedev](https://github.com/michal-z/zig-gamedev)
 
-## TODO
+# TODO
 
 - [x] add enable and disable options
 - [ ] add compatibility with [zig-tracer](https://github.com/nektro/zig-tracer/)
 - [ ] add documentation
 
-## License
+# License
 
 MIT, see [LICENSE](https://github.com/altagos/zig-spall/blob/main/LICENSE)
