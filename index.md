@@ -70,6 +70,7 @@ An example with threads is in the [example folder](https://git.sr.ht/~altagos/zi
 - [x] add enable and disable options
 - [ ] add compatibility with [zig-tracer](https://github.com/nektro/zig-tracer/)
 - [ ] add documentation
+- [ ] add test (?)
 
 # License
 

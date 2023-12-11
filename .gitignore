@@ -3,3 +3,5 @@
 **/trace
 
 **/*.DS_Store
+
+**/*.spall

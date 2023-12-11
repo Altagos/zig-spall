@@ -17,12 +17,26 @@ pub fn build(b: *std.Build) void {
         }},
     });
 
-    const spall_lib = b.addStaticLibrary(.{
+    const spall_lib = b.addSharedLibrary(.{
         .name = "spall",
+        .root_source_file = .{ .path = "./src/spall.zig" },
         .target = target,
         .optimize = optimize,
     });
-    spall_lib.addModule("spall", spall_module);
+    spall_lib.dll_export_fns = true;
+    spall_lib.addModule("spall-options", options.createModule());
 
     b.installArtifact(spall_lib);
+
+    const test_step = b.step("test", "Run unit tests");
+
+    const unit_tests = b.addTest(.{
+        .root_source_file = .{ .path = "./src/test.zig" },
+        .target = target,
+        .optimize = optimize,
+    });
+    unit_tests.addModule("spall", spall_module);
+
+    const run_unit_tests = b.addRunArtifact(unit_tests);
+    test_step.dependOn(&run_unit_tests.step);
 }
