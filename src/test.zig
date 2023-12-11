@@ -2,7 +2,7 @@ const std = @import("std");
 const spall = @import("spall");
 
 test "init thread" {
-    try spall.init("./test.spall");
+    try spall.init("./test_init_thread.spall");
     defer spall.deinit();
 
     spall.init_thread();
