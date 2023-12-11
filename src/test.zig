@@ -10,4 +10,6 @@ test "init thread" {
 
     const t = spall.trace(@src(), "test", .{});
     defer t.end();
+
+    std.time.sleep(10);
 }
