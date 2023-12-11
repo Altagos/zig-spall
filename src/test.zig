@@ -7,4 +7,7 @@ test "init thread" {
 
     spall.init_thread();
     defer spall.deinit_thread();
+
+    const t = spall.trace(@src(), "test", .{});
+    defer t.end();
 }

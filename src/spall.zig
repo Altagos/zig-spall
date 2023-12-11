@@ -3,9 +3,8 @@ const builtin = @import("builtin");
 
 var pid: std.os.pid_t = undefined;
 var ctx: Profile = undefined;
-var fallback_thread_id: std.os.pid_t = 0;
 
-threadlocal var tid: std.Thread.Id = undefined;
+threadlocal var tid: std.os.pid_t = undefined;
 threadlocal var buffer: ?Buffer = undefined;
 threadlocal var started: bool = false;
 
@@ -31,7 +30,7 @@ pub fn init_thread() void {
         tid = switch (builtin.os.tag) {
             .linux => std.os.linux.gettid(),
             .windows => std.os.windows.kernel32.GetCurrentThreadId(),
-            else => std.Thread.getCurrentId(),
+            else => @intCast(std.Thread.getCurrentId()),
         };
 
         buffer = Buffer.init(&ctx);
