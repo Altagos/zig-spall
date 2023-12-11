@@ -9,7 +9,7 @@ First add it as dependencie to your `build.zig.zon` file:
 ```zig
 .dependencies = .{
     .spall = .{
-        .url = "https://github.com/altagos/zig-spall/archive/{{COMMIT}}.tar.gz"
+        .url = "https://git.sr.ht/~altagos/zig-spall/archive/{{COMMIT}}.tar.gz"
         .hash = "{{HASH}}"
     },
 }
@@ -52,7 +52,7 @@ pub fn main() !void {
 }
 ```
 
-An example with threads is in the [example folder](https://github.com/altagos/zig-spall/blob/main/example).
+An example with threads is in the [example folder](https://git.sr.ht/~altagos/zig-spall/tree/main/item/example).
 
 ## Similar libraries & other profiling libraries
 
