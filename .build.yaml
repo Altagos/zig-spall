@@ -1,0 +1,22 @@
+image: alpine/edge
+packages:
+  - xz
+sources:
+  - https://git.sr.ht/~altagos/zig-spall
+environment:
+  zig_version: "0.12.0-dev.1773+8a8fd47d2"
+tasks:
+  - setup-zig: |
+      set +x
+      echo "Downloading Zig $zig_version..."
+      mkdir zig
+      curl -s -O https://ziglang.org/builds/zig-linux-x86_64-$zig_version.tar.xz
+      echo "Unpacking zig..."
+      tar -xJf zig-linux-x86_64-$zig_version.tar.xz -C zig --strip-components=1
+      set -x
+  - test-debug: |
+      cd zig-spall
+      ~/zig/zig build test -Denable=true
+  - test-release: |
+      cd zig-spall
+      ~/zig/zig build test -Denable=true -Doptimize=ReleaseSafe
