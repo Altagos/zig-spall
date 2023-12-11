@@ -1,5 +1,5 @@
 ---
-title: "Zig-Spall"
+title: "zig-spall"
 ---
 
 # Installation
