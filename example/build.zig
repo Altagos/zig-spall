@@ -19,7 +19,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    exe.addModule("spall", spall.module("spall"));
+    exe.root_module.addImport("spall", spall.module("spall"));
 
     b.installArtifact(exe);
 

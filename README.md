@@ -1,6 +1,9 @@
 # zig-spall
 
+[![builds.sr.ht status](https://builds.sr.ht/~altagos/zig-spall.svg)](https://builds.sr.ht/~altagos/zig-spall?)
+
 Zig library for generating [spall-web](gravitymoth.com/spall) profiling reports.
+Tested with Zig version `0.12.0-dev.2043+6ebeb85ab`
 
 ## Installation
 

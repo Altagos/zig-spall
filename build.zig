@@ -10,23 +10,12 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "enable", spall_enable);
 
     const spall_module = b.addModule("spall", .{
-        .source_file = .{ .path = if (spall_enable) "./src/spall.zig" else "./src/nop.zig" },
-        .dependencies = &.{.{
+        .root_source_file = .{ .path = if (spall_enable) "./src/spall.zig" else "./src/nop.zig" },
+        .imports = &.{.{
             .name = "spall-options",
             .module = options.createModule(),
         }},
     });
-
-    const spall_lib = b.addSharedLibrary(.{
-        .name = "spall",
-        .root_source_file = .{ .path = "./src/spall.zig" },
-        .target = target,
-        .optimize = optimize,
-    });
-    spall_lib.dll_export_fns = true;
-    spall_lib.addModule("spall-options", options.createModule());
-
-    b.installArtifact(spall_lib);
 
     const test_step = b.step("test", "Run unit tests");
 
@@ -35,7 +24,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    unit_tests.addModule("spall", spall_module);
+    unit_tests.root_module.addImport("spall", spall_module);
 
     const run_unit_tests = b.addRunArtifact(unit_tests);
     test_step.dependOn(&run_unit_tests.step);

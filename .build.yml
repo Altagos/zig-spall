@@ -4,7 +4,7 @@ packages:
 sources:
   - https://git.sr.ht/~altagos/zig-spall
 environment:
-  zig_version: "0.12.0-dev.1773+8a8fd47d2"
+  zig_version: "0.12.0-dev.2043+6ebeb85ab"
 tasks:
   - setup-zig: |
       set +x
