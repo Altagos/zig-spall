@@ -1,5 +1,6 @@
 image: alpine/edge
 packages:
+  - curl
   - xz
 sources:
   - https://git.sr.ht/~altagos/zig-spall
