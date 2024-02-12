@@ -15,7 +15,8 @@ First add it as dependencie to your `build.zig.zon` file:
 }
 ```
 
-Replace `{{COMMIT}}` with the latest commit, and `{{HASH}}` will get generated during the next build (and displayed for you to copy and replace).
+Replace `{{COMMIT}}` with the latest commit, and `{{HASH}}` will get generated during the next build 
+and can be copied from the error message.
 
 Then in `build.zig` add it to your Compile step like this:
 
