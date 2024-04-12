@@ -1,7 +1,7 @@
 .{
     .name = "zig-spall",
-    .version = "0.1.0",
-    .minimum_zig_version = "0.12.0-dev.1773+8a8fd47d2",
+    .version = "0.1.1",
+    .minimum_zig_version = "0.12.0-dev.3522+b88ae8dbd",
     .dependencies = .{},
     .paths = .{
         "build.zig",

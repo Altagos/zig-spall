@@ -1,22 +1,25 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-var pid: std.os.pid_t = undefined;
+var pid: i32 = undefined;
 var ctx: Profile = undefined;
 
-threadlocal var tid: std.os.pid_t = undefined;
+threadlocal var tid: i32 = undefined;
 threadlocal var buffer: ?Buffer = undefined;
 threadlocal var started: bool = false;
 
 pub fn init(filename: []const u8) !void {
-    pid = switch (builtin.os.tag) {
-        .linux => std.os.linux.getpid(),
-        .macos, .ios, .watchos, .tvos => try std.os.darwin.machTaskForSelf().pidForTask(),
+    pid = getPid();
+    ctx = try Profile.init(filename, 1.0);
+}
+
+fn getPid() i32 {
+    return switch (builtin.os.tag) {
+        .linux, .macos, .ios, .watchos, .tvos => std.os.linux.getpid(),
+        // .macos, .ios, .watchos, .tvos => try std.os.darwin.machTaskForSelf().pidForTask(),
         .windows => std.os.windows.kernel32.GetCurrentProcessId(),
         else => 0,
     };
-
-    ctx = try Profile.init(filename, 1.0);
 }
 
 pub fn deinit() void {
